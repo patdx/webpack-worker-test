@@ -1,0 +1,41 @@
+diff --git a/node_modules/bree/lib/index.js b/node_modules/bree/lib/index.js
+index d0a28f3..8dc9fda 100644
+--- a/node_modules/bree/lib/index.js
++++ b/node_modules/bree/lib/index.js
+@@ -298,7 +298,7 @@ var Bree = /*#__PURE__*/function (_EventEmitter) {
+           }, this.config.worker && this.config.worker.workerData ? this.config.worker.workerData : {}), job.worker && job.worker.workerData ? job.worker.workerData : {})
+         });
+ 
+-        this.workers[name] = new threads.Worker(job.path, object);
++        this.workers[name] = typeof job.factory === "function" ? job.factory() : new threads.Worker(job.path, object);
+         this.emit('worker created', name);
+         debug('worker started', name);
+         var prefix = "Worker for job \"".concat(name, "\"");
+diff --git a/node_modules/bree/lib/job-builder.js b/node_modules/bree/lib/job-builder.js
+index 0f731db..da5946a 100644
+--- a/node_modules/bree/lib/job-builder.js
++++ b/node_modules/bree/lib/job-builder.js
+@@ -59,6 +59,8 @@ var buildJob = function buildJob(job, config) {
+     job.worker = _objectSpread({
+       eval: true
+     }, job.worker);
++  } else if (typeof job.factory === 'function') {
++    // do nothing
+   } else {
+     var _path3 = isSANB(job.path) ? job.path : join(config.root, job.name.endsWith('.js') || job.name.endsWith('.mjs') ? job.name : "".concat(job.name, ".").concat(config.defaultExtension));
+ 
+diff --git a/node_modules/bree/lib/job-validator.js b/node_modules/bree/lib/job-validator.js
+index 70627cf..38c5930 100644
+--- a/node_modules/bree/lib/job-validator.js
++++ b/node_modules/bree/lib/job-validator.js
+@@ -86,7 +86,9 @@ var validateFunctionJob = function validateFunctionJob(job, i) {
+ var validateJobPath = function validateJobPath(job, prefix, config) {
+   var errors = [];
+ 
+-  if (typeof job.path === 'function') {
++  if (typeof job.factory === "function") {
++    // do nothing
++  } else if (typeof job.path === 'function') {
+     var path = "(".concat(job.path.toString(), ")()"); // Can't be a built-in or bound function
+ 
+     if (path.includes('[native code]')) {

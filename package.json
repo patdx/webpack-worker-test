@@ -1,0 +1,29 @@
+{
+  "name": "webpack-worker-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "node dist/main.js",
+    "postinstall": "patch-package"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/lodash": "^4.14.168",
+    "@types/lodash-es": "^4.17.4",
+    "bree": "^6.1.0",
+    "lodash": "^4.17.20",
+    "lodash-es": "^4.17.20",
+    "webpack": "^5.22.0",
+    "webpack-cli": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.12.13",
+    "patch-package": "^6.2.2",
+    "threads-plugin": "^1.4.0",
+    "worker-plugin": "^5.0.0"
+  }
+}
