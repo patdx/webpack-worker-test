@@ -1,21 +1,16 @@
-const path = require("path");
-const ThreadsPlugin = require("threads-plugin");
+const path = require('path');
 
 /** @type {import("webpack").Configuration} */
 module.exports = {
-  entry: "./src/index.js",
-  mode: "development",
+  entry: './src/index.js',
+  mode: 'development',
   devtool: false,
-  target: "node",
+  target: 'node',
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
   },
-  // plugins: [new ThreadsPlugin()],
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: "all",
-  //     minChunks: 2,
-  //   },
-  // },
+  experiments: {
+    topLevelAwait: true,
+  },
 };

@@ -2,7 +2,6 @@
 
 // hello();
 
-console.log("this is the worker");
+console.log('this is the worker');
 
- import("./shared").then((m) => m.hello());
-
+import('./shared').then((m) => m.hello());

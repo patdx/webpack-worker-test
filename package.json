@@ -23,7 +23,6 @@
   "devDependencies": {
     "@babel/types": "^7.12.13",
     "patch-package": "^6.2.2",
-    "threads-plugin": "^1.4.0",
-    "worker-plugin": "^5.0.0"
+    "prettier": "^2.2.1"
   }
 }
